@@ -1,7 +1,7 @@
 $(document).ready(function () {
     const studentsdata = [];
     const header = [];
-
+    const workshops = {};
     //below function uploads a file and presents it in a tabular format 
     const uploadconfirm = document.getElementById('uploadconfirm').addEventListener('click', () => {
         Papa.parse(document.getElementById('uploadfile').files[0],
@@ -55,7 +55,8 @@ $(document).ready(function () {
                         row = "";
                     }
                     document.getElementById('table').innerHTML = tablecontent;
-                    makeTeams();
+                    addStudentsToWorkShops();
+
 
                 }
             })
@@ -63,10 +64,32 @@ $(document).ready(function () {
 
 
     //begin code here
-    //the data extracted from teh csv file is put into the 'studentdata' 2d array 
+    //the data extracted from the csv file is put into the 'studentdata' 2d array 
+    function makeWorkshops() {
+        let workshopnames = ["WRK01/01", "WRK01/02", "WRK01/03", "WRK01/04", "WRK01/05", "WRK01/06", "WRK01/07", "WRK01/08", "WRK01/09", "WRK01/10", "WRK01/11", "WRK01/12"];
+        
+        for (let workshopname of workshopnames) {
+            workshops[workshopname] = [];
+        }
+    }
 
+    function addStudentsToWorkShops() {
+        makeWorkshops();
+        let workshopcolumn = 7;
 
+        for (const student of studentsdata) {
+            workshops[student[workshopcolumn]].push(student);
+        }
+        //console.log(workshops);
+    }
 
+    function sortProjectPrefernces(){
+        
+    }
+
+    function makeWorkshopTeams(){
+        
+    }
 
     function makeTeams() {
         // Initialise constants for Sprint 1, not customisable yet.
@@ -88,41 +111,41 @@ $(document).ready(function () {
                 }
             }
             // Work on sorted students here
-            for(var l = 0; l < 5; l ++) {
+            for (var l = 0; l < 5; l++) {
                 var currentTeam = [];
                 if (students[l] == undefined) {
                     break;
                 }
                 else if (l == 0) {
-                    for(var z = 0; z < 7; z++) {
+                    for (var z = 0; z < 7; z++) {
                         students[z].unshift("1");
                         currentTeam.push(students[z]);
                     }
                     teams.push(currentTeam);
                 }
                 else if (l == 1) {
-                    for(var z = 7; z < 14; z++) {
+                    for (var z = 7; z < 14; z++) {
                         students[z].unshift("2");
                         currentTeam.push(students[z]);
                     }
                     teams.push(currentTeam);
                 }
                 else if (l == 2) {
-                    for(var z = 14; z < 21; z++) {
+                    for (var z = 14; z < 21; z++) {
                         students[z].unshift("3");
                         currentTeam.push(students[z]);
                     }
                     teams.push(currentTeam);
                 }
                 else if (l == 3) {
-                    for(var z = 21; z < 28; z++) {
+                    for (var z = 21; z < 28; z++) {
                         students[z].unshift("4");
                         currentTeam.push(students[z]);
                     }
                     teams.push(currentTeam);
                 }
                 else if (l == 4) {
-                    for(var z = 28; z < 35; z++) {
+                    for (var z = 28; z < 35; z++) {
                         students[z].unshift("5");
                         currentTeam.push(students[z]);
                     }
@@ -133,7 +156,7 @@ $(document).ready(function () {
         console.log(teams.toString());
 
     }
-    
+
     function toCSV(inputArray, separator = ",") {
         let rowsAsString = inputArray.map(row => {
             return row.join(separator);
