@@ -1,6 +1,4 @@
-
-
-$(document).ready(function () {
+$(document).ready(function() {
     const studentsdata = [];
     const header = [];
     const workshops = {};
@@ -12,7 +10,7 @@ $(document).ready(function () {
     const projectoptions = ["Web-app", "iOS app", "Android app", "desktop application"];
     const workshopnames = ["WRK01/01", "WRK01/02", "WRK01/03", "WRK01/04", "WRK01/05", "WRK01/06", "WRK01/07", "WRK01/08", "WRK01/09", "WRK01/10", "WRK01/11", "WRK01/12"];
 
-    document.getElementById("form").addEventListener("submit", function (e) {
+    document.getElementById("form").addEventListener("submit", function(e) {
         //Stop the form from submitting:
         e.preventDefault();
 
@@ -32,9 +30,9 @@ $(document).ready(function () {
             download: true,
             skipEmptyLines: true,
 
-            complete: function (results) {
+            complete: function(results) {
                 for (i = 0; i < results.data.length; i++) {
-                    if (i === 0) {
+                    if (i == 0) {
                         header.push(results.data[i])
                         continue
                     } else {
@@ -79,7 +77,7 @@ $(document).ready(function () {
             for (let student of workshops[workshop]) {
                 let projectoption = student[optioncolumn].replace(";", "");
                 projectteams[projectoption].push(student);
-                if (projectteams[projectoption].length === minStudents) {
+                if (projectteams[projectoption].length == minStudents) {
                     workshopteams[workshop].push(projectteams[projectoption]);
                     projectteams[projectoption] = [];
                 }
@@ -91,10 +89,10 @@ $(document).ready(function () {
 
     function createGroups() {
         //console.log(JSON.stringify(workshopteams, null, 3))
-        groups = $.map(workshopteams, function (value) {
-            return [value]
-        })
-        //console.log(groups);
+        groups = $.map(workshopteams, function(value) {
+                return [value]
+            })
+            //console.log(groups);
 
         for (i = 0; i < groups.length; i++) {
             prunedgroups = prunedgroups.concat(groups[i]);
